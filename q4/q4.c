@@ -12,7 +12,7 @@ int main(){
     char my_inpu[32];
     char my_oper[64];
     int a,b;
-    while(scanf("%s %d %d", my_inpu, &a, &b)){
+    while(scanf("%s %d %d", my_inpu, &a, &b) != EOF){
 
     snprintf(my_oper, sizeof(my_oper), "./lib%s.so", my_inpu);    
 

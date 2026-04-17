@@ -9,7 +9,8 @@
 #   s7 = loop index i
 
 .data
-fmt_val:    .string "%lld "
+fmt_first_ele:  .string "%lld"
+fmt_val:    .string " %lld"
 fmt_nl:     .string "\n"
 
 .text
@@ -133,6 +134,15 @@ main_done:
         # printing the array 
         li s7, 0    # Start printing from index 0
 print_loop:
+        slli t0, s7, 3
+        add t0, s4, t0  #getting to it in bytes
+        ld a1, 0(t0)    # result[i]
+        la a0, fmt_first_ele  #loading the address of fmt_val        
+        call printf
+        addi s7, s7, 1
+
+
+    print_inside:
         bge s7, s2, print_done
         slli t0, s7, 3
         add t0, s4, t0  #getting to it in bytes
@@ -140,7 +150,7 @@ print_loop:
         la a0, fmt_val  #loading the address of fmt_val        
         call printf
         addi s7, s7, 1
-        j print_loop
+        j print_inside
 
 print_done:
         la a0, fmt_nl   # "\n"
